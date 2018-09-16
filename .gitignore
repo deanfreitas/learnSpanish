@@ -1,0 +1,14 @@
+.idea/
+learnSpanish.sln.DotSettings
+.vs
+learnSpanish/learnSpanish/bin
+learnSpanish/learnSpanish/obj
+learnSpanish/learnSpanish.Android/obj
+learnSpanish/learnSpanish.Android/learnSpanish.Android.csproj.user
+learnSpanish/learnSpanish.Android/Assets/AboutAssets.txt
+learnSpanish/learnSpanish.Android/bin
+learnSpanish/learnSpanish.iOS/obj
+learnSpanish/learnSpanish.iOS/bin
+learnSpanish/learnSpanish.UWP/obj
+learnSpanish/learnSpanish.UWP/bin
+learnSpanish/learnSpanish.UWP/Package.appxmanifest
