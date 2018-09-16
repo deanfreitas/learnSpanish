@@ -2,28 +2,13 @@
 
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:learnSpanish.views"
-             xmlns:view="clr-namespace:learnSpanish.model"
              x:Class="learnSpanish.views.MainPage">
 
-    <ContentPage.BindingContext>
-        <view:Login />
-    </ContentPage.BindingContext>
 
     <StackLayout>
-        <Label Text="Hello Friend"
-               HorizontalOptions="Center"
-               VerticalOptions="CenterAndExpand" />
-
-        <Entry x:Name="User" Text="{Binding User}" Placeholder="User"
-               PlaceholderColor="White" HeightRequest="40"
-               Keyboard="Email"
-               TextColor="Black" />
-
-        <Entry x:Name="Password" Text="{Binding Password}" Placeholder="Password"
-               PlaceholderColor="White" HeightRequest="40"
-               IsPassword="True"
-               TextColor="Black" />
-
+        <Label Text="Welcome to Xamarin.Forms!"
+               VerticalOptions="CenterAndExpand"
+               HorizontalOptions="CenterAndExpand" />
     </StackLayout>
+    
 </ContentPage>

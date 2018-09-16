@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:learnSpanish.views"
+             xmlns:modelView="clr-namespace:learnSpanish.modelView"
+             x:Class="learnSpanish.views.LoginPage">
+
+    <ContentPage.BindingContext>
+        <modelView:LoginView />
+    </ContentPage.BindingContext>
+
+    <StackLayout>
+        <Frame>
+            <StackLayout>
+                <Entry x:Name="User" Text="{Binding User}" Placeholder="User"
+                       PlaceholderColor="Black" HeightRequest="40"
+                       Keyboard="Text"
+                       TextColor="Black" />
+
+                <Entry x:Name="Password" Text="{Binding Password}" Placeholder="Password"
+                       PlaceholderColor="Black" HeightRequest="40"
+                       IsPassword="True"
+                       TextColor="Black" />
+            </StackLayout>
+        </Frame>
+        <Frame>
+            <StackLayout>
+                <Button Text="Login" Command="{Binding AuthenticateCommand}" />
+            </StackLayout>
+        </Frame>
+    </StackLayout>
+</ContentPage>

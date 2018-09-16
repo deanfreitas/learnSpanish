@@ -4,30 +4,29 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
+
 namespace learnSpanish
 {
     public partial class App : Application
     {
         public App()
         {
-            InitializeComponent();
+            DependencyService.Register<modelView.services.IMessageService, views.services.MessageService>();
 
-            MainPage = new MainPage();
+            InitializeComponent();
+            MainPage = new LoginPage();
         }
 
         protected override void OnStart()
         {
-            // Handle when your app starts
         }
 
         protected override void OnSleep()
         {
-            // Handle when your app sleeps
         }
 
         protected override void OnResume()
         {
-            // Handle when your app resumes
         }
     }
 }
