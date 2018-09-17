@@ -12,9 +12,10 @@ namespace learnSpanish
         public App()
         {
             DependencyService.Register<modelView.services.IMessageService, views.services.MessageService>();
+            DependencyService.Register<modelView.services.INavigationService, views.services.NavigationService>();
 
             InitializeComponent();
-            MainPage = new LoginPage();
+            MainPage = new NavigationPage(new LoginPage());
         }
 
         protected override void OnStart()

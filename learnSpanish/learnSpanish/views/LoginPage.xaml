@@ -4,7 +4,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:learnSpanish.views"
              xmlns:modelView="clr-namespace:learnSpanish.modelView"
-             x:Class="learnSpanish.views.LoginPage">
+             x:Class="learnSpanish.views.LoginPage"
+             Title="Page Login">
 
     <ContentPage.BindingContext>
         <modelView:LoginView />

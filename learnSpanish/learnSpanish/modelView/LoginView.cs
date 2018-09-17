@@ -2,7 +2,11 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using learnSpanish.enums.error;
+using learnSpanish.enums.service;
 using learnSpanish.model;
+using learnSpanish.modelView.services;
+using learnSpanish.utils;
 using learnSpanish.views;
 using Xamarin.Forms;
 
@@ -12,12 +16,14 @@ namespace learnSpanish.modelView
     {
         private string user;
         private string password;
-        private readonly services.IMessageService _messageService;
+        private readonly IMessageService _messageService;
+        private readonly INavigationService _navigationService;
 
         public LoginView()
         {
             AuthenticateCommand = new Command(Authenticate);
-            _messageService = DependencyService.Get<services.IMessageService>();
+            _messageService = DependencyService.Get<IMessageService>();
+            _navigationService = DependencyService.Get<INavigationService>();
         }
 
         public string User
@@ -46,10 +52,21 @@ namespace learnSpanish.modelView
         private void Authenticate()
         {
             Login = new Login(user, password);
-            if (string.IsNullOrEmpty(Login.User) || string.IsNullOrEmpty(Login.Password))
+            string message = LoginUtils.CheckLogin(Login);
+            
+            if (!string.IsNullOrEmpty(message))
             {
-                _messageService.ShowMessageError("You must enter the username and password");
+                _messageService.ShowMessageError(message);
+                return;
             }
+
+            if (!Login.Password.Equals("12345"))
+            {
+                _messageService.ShowMessageError(EnumsService.GetMessageErrorUser(ErrorUser.WrongCredentials));
+                return;
+            }
+
+            _navigationService.NavigationWithoutBackButton("MainPage");
         }
     }
 }
