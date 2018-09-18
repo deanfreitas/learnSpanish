@@ -1,6 +1,6 @@
-using learnSpanish.enums.error;
+using learnSpanish.Enums.Error;
 
-namespace learnSpanish.enums.service
+namespace learnSpanish.Enums.Service
 {
     public class EnumsService
     {

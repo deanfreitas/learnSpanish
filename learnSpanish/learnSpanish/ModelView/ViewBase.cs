@@ -1,7 +1,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace learnSpanish.modelView
+namespace learnSpanish.ModelView
 {
     public class ViewBase : INotifyPropertyChanged
     {

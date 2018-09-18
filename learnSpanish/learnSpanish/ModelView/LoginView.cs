@@ -1,16 +1,13 @@
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using learnSpanish.enums.error;
-using learnSpanish.enums.service;
-using learnSpanish.model;
-using learnSpanish.modelView.services;
+using learnSpanish.Enums.Error;
+using learnSpanish.Enums.Service;
+using learnSpanish.Enums.View;
+using learnSpanish.Model;
+using learnSpanish.ModelView.Services;
 using learnSpanish.utils;
-using learnSpanish.views;
 using Xamarin.Forms;
 
-namespace learnSpanish.modelView
+namespace learnSpanish.ModelView
 {
     public class LoginView : ViewBase
     {
@@ -66,7 +63,7 @@ namespace learnSpanish.modelView
                 return;
             }
 
-            _navigationService.NavigationWithoutBackButton("MainPage");
+            _navigationService.NavigationWithoutBackButton(ViewName.MainPage);
         }
     }
 }

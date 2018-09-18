@@ -1,7 +1,7 @@
 using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
-using learnSpanish.model;
+using learnSpanish.Model;
 
 namespace learnSpanish.utils
 {

@@ -1,4 +1,4 @@
-namespace learnSpanish.model
+namespace learnSpanish.Model
 {
     public class Login
     {

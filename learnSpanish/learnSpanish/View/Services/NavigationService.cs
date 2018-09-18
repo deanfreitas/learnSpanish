@@ -1,19 +1,20 @@
 using System.Threading.Tasks;
-using learnSpanish.factory;
-using learnSpanish.modelView.services;
+using learnSpanish.Enums.View;
+using learnSpanish.Factory;
+using learnSpanish.ModelView.Services;
 using Xamarin.Forms;
 
-namespace learnSpanish.views.services
+namespace learnSpanish.View.Services
 {
     public class NavigationService : INavigationService
     {
-        public async Task Navigation(string viewName)
+        public async Task Navigation(ViewName viewName)
         {
             ContentPage page = PageFactory.GetPage(viewName);
             await Application.Current.MainPage.Navigation.PushAsync(page);
         }
         
-        public async Task NavigationWithoutBackButton(string viewName)
+        public async Task NavigationWithoutBackButton(ViewName viewName)
         {
             ContentPage page = PageFactory.GetPage(viewName);
 
@@ -21,7 +22,7 @@ namespace learnSpanish.views.services
             NavigationPage.SetHasBackButton(page, false);
         }
         
-        public async Task NavigationWithoutNavigationBar(string viewName)
+        public async Task NavigationWithoutNavigationBar(ViewName viewName)
         {
             ContentPage page = PageFactory.GetPage(viewName);
 

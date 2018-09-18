@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace learnSpanish.modelView.services
+namespace learnSpanish.ModelView.Services
 {
     public interface IMessageService
     {

@@ -1,9 +1,9 @@
 using System;
 using System.Threading.Tasks;
-using learnSpanish.modelView.services;
+using learnSpanish.ModelView.Services;
 using Xamarin.Forms;
 
-namespace learnSpanish.views.services
+namespace learnSpanish.View.Services
 {
     public class MessageService : IMessageService
     {

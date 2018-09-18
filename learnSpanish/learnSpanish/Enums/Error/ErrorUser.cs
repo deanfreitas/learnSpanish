@@ -1,4 +1,4 @@
-namespace learnSpanish.enums.error
+namespace learnSpanish.Enums.Error
 {
     public enum ErrorUser
     {

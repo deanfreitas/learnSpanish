@@ -1,5 +1,8 @@
 ﻿using System;
-using learnSpanish.views;
+using learnSpanish.ModelView.Services;
+using learnSpanish.Sqlite.Interface;
+using learnSpanish.View;
+using learnSpanish.View.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -11,8 +14,8 @@ namespace learnSpanish
     {
         public App()
         {
-            DependencyService.Register<modelView.services.IMessageService, views.services.MessageService>();
-            DependencyService.Register<modelView.services.INavigationService, views.services.NavigationService>();
+            DependencyService.Register<IMessageService, MessageService>();
+            DependencyService.Register<INavigationService, NavigationService>();
 
             InitializeComponent();
             MainPage = new NavigationPage(new LoginPage());
