@@ -1,3 +1,4 @@
+using System;
 using learnSpanish.Enums.View;
 using Xamarin.Forms;
 using LoginPage = learnSpanish.View.LoginPage;
@@ -7,18 +8,20 @@ namespace learnSpanish.Factory
 {
     public class PageFactory
     {
-        public static ContentPage GetPage(ViewName viewName)
+        public ContentPage GetPage(ViewName viewName)
         {
-            ContentPage page = null;
+            ContentPage page;
 
-            if (viewName == ViewName.LoginPage)
+            switch (viewName)
             {
-                page = new LoginPage();
-            }
-
-            else if (viewName == ViewName.MainPage)
-            {
-                page = new MainPage();
+                case ViewName.LoginPage:
+                    page = new LoginPage();
+                    break;
+                case ViewName.MainPage:
+                    page = new MainPage();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(viewName), viewName, null);
             }
 
             return page;

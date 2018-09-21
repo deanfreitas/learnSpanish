@@ -8,5 +8,10 @@ namespace learnSpanish.Logs
         {
             Console.Error.WriteLine(message);
         }
+
+        public static void Info(string message)
+        {
+            Console.WriteLine(message);
+        }
     }
 }

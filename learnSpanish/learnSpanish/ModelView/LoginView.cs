@@ -11,8 +11,8 @@ namespace learnSpanish.ModelView
 {
     public class LoginView : ViewBase
     {
-        private string user;
-        private string password;
+        private string _user;
+        private string _password;
         private readonly IMessageService _messageService;
         private readonly INavigationService _navigationService;
 
@@ -25,20 +25,20 @@ namespace learnSpanish.ModelView
 
         public string User
         {
-            get => user;
+            get => _user;
             set
             {
-                user = value;
+                _user = value;
                 NotifyPropertyChanged();
             }
         }
 
         public string Password
         {
-            get => password;
+            get => _password;
             set
             {
-                password = value;
+                _password = value;
                 NotifyPropertyChanged();
             }
         }
@@ -48,8 +48,8 @@ namespace learnSpanish.ModelView
 
         private void Authenticate()
         {
-            Login = new Login(user, password);
-            string message = LoginUtils.CheckLogin(Login);
+            Login = new Login(_user, _password);
+            var message = LoginUtils.CheckLogin(Login);
             
             if (!string.IsNullOrEmpty(message))
             {

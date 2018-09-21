@@ -1,5 +1,7 @@
 ﻿using System;
+using learnSpanish.Model;
 using learnSpanish.ModelView.Services;
+using learnSpanish.Sqlite;
 using learnSpanish.Sqlite.Interface;
 using learnSpanish.View;
 using learnSpanish.View.Services;
@@ -23,6 +25,9 @@ namespace learnSpanish
 
         protected override void OnStart()
         {
+            var sqliteTable = new SqliteTable();
+
+            sqliteTable.CreateTable<Login>();
         }
 
         protected override void OnSleep()

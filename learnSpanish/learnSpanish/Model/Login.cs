@@ -1,3 +1,5 @@
+using SQLite;
+
 namespace learnSpanish.Model
 {
     public class Login
@@ -19,10 +21,13 @@ namespace learnSpanish.Model
             Password = password;
         }
 
+        [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
 
+        [Unique, NotNull]
         public string User { get; set; }
 
+        [NotNull]
         public string Password { get; set; }
     }
 }
