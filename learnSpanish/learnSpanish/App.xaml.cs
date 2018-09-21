@@ -25,9 +25,16 @@ namespace learnSpanish
 
         protected override void OnStart()
         {
-            var sqliteTable = new SqliteTable();
+            try
+            {
+                var sqliteTable = new SqliteTable();
 
-            sqliteTable.CreateTable<Login>();
+                sqliteTable.CreateTable<Login>();
+
+            } catch (Exception e)
+            {
+                Logs.Logs.Error($"Error init aplication ==> {e.Message}");
+            }
         }
 
         protected override void OnSleep()

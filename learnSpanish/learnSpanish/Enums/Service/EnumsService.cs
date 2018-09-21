@@ -12,5 +12,14 @@ namespace learnSpanish.Enums.Service
                 default: return "";
             }
         }
+
+        public static string GetMessageErrorSystem(ErrorSystem errorSystem)
+        {
+            switch (errorSystem)
+            {
+                case ErrorSystem.Generic: return "Error system";
+                default: return "";
+            }
+        }
     }
 }
