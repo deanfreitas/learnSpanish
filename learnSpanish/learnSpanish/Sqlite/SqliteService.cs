@@ -1,12 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using learnSpanish.Model;
-using learnSpanish.Sqlite.Interface;
-using SQLite;
-using Xamarin.Forms;
+using learnSpanish.Enums.Sql;
+using learnSpanish.Exceptions;
 
 namespace learnSpanish.Sqlite
 {
@@ -26,20 +23,23 @@ namespace learnSpanish.Sqlite
 
             if (result == null)
             {
-                throw new Exception($"Error select {typeof(T).Name} by id ==> not found id: {id}");
+                throw new SqliteServiceException(TableSql.Select, typeof(T).Name, $"not found id = {id}");
             }
 
             return result;
         }
 
-        public async Task<T> GetObjectByUniqueName<T>(string name) where T : new()
+        public async Task<T> GetObjectByUniqueValue<T>(Dictionary<string, string> values) where T : new()
         {
             var connection = _sqliteWrapper.OpenDatabase();
-            var result = await connection.QueryAsync<T>($"SELECT * FROM {typeof(T).Name} WHERE login_user=?", name);
+            var result = await connection.QueryAsync<T>(
+                $"SELECT * FROM {typeof(T).Name} WHERE {values.Keys.FirstOrDefault()}=?",
+                values.Values.FirstOrDefault());
 
             if (result == null || !result.Any())
             {
-                throw new Exception($"Error select {typeof(T).Name} by name ==> This name not exist in database");
+                throw new SqliteServiceException(TableSql.Select, typeof(T).Name,
+                    $"This {values.Keys.FirstOrDefault()} not exist in database");
             }
 
             return result[0];
@@ -52,7 +52,25 @@ namespace learnSpanish.Sqlite
 
             if (result == null)
             {
-                throw new Exception($"Error select {typeof(T).Name} ==> Not found values int this table");
+                throw new SqliteServiceException(TableSql.Select, typeof(T).Name, "Not found values in this table");
+            }
+
+            return result;
+        }
+
+        public async Task<List<T>> GetListObjectByQuery<T>(string query) where T : new()
+        {
+            if (query.IndexOf("Select", StringComparison.OrdinalIgnoreCase) > 0)
+            {
+                throw new SqliteServiceException(TableSql.Select, typeof(T).Name, "This method need to select query");
+            }
+
+            var connection = _sqliteWrapper.OpenDatabase();
+            var result = await connection.QueryAsync<T>(query);
+
+            if (result == null || !result.Any())
+            {
+                throw new SqliteServiceException(TableSql.Select, typeof(T).Name, "Not found values in this table");
             }
 
             return result;
@@ -61,7 +79,23 @@ namespace learnSpanish.Sqlite
         public async void Insert<T>(object o) where T : new()
         {
             var connection = _sqliteWrapper.OpenDatabase();
-            await connection.InsertAsync(o);
+            var result = await connection.InsertAsync(o);
+
+            if (!result.Equals(1))
+            {
+                throw new SqliteServiceException(TableSql.Insert, typeof(T).Name, $"rows add: {result}");
+            }
+        }
+
+        public async void Update<T>(object o) where T : new()
+        {
+            var connection = _sqliteWrapper.OpenDatabase();
+            var result = await connection.UpdateAsync(o);
+
+            if (!result.Equals(1))
+            {
+                throw new SqliteServiceException(TableSql.Update, typeof(T).Name, $"rows updated: {result}");
+            }
         }
 
         public async void Delete<T>(int id) where T : new()
@@ -69,9 +103,9 @@ namespace learnSpanish.Sqlite
             var connection = _sqliteWrapper.OpenDatabase();
             var result = await connection.DeleteAsync<T>(id);
 
-            if (result != 1)
+            if (!result.Equals(1))
             {
-                throw new Exception($"Error delete in {typeof(T).Name} ==> rows affected: {result}");
+                throw new SqliteServiceException(TableSql.Delete, typeof(T).Name, $"rows deleted: {result}");
             }
         }
     }

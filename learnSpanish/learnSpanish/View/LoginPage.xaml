@@ -17,7 +17,7 @@
             <multiTrigger:CheckFieldsEmpty x:Key="CheckFieldsEmpty" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    
+
     <StackLayout>
         <Frame>
             <StackLayout>
@@ -34,7 +34,7 @@
         </Frame>
         <Frame>
             <StackLayout>
-                <Button Text="Login" Command="{Binding AuthenticateCommand}" IsEnabled="false">
+                <Button Text="Login" IsEnabled="false">
                     <Button.Triggers>
                         <EventTrigger Event="Clicked">
                             <eventTriggerButton:Action />
@@ -49,6 +49,7 @@
                                     Value="true" />
                             </MultiTrigger.Conditions>
                             <Setter Property="IsEnabled" Value="true" />
+                            <Setter Property="Command" Value="{Binding AuthenticateCommand}" />
                         </MultiTrigger>
                     </Button.Triggers>
                 </Button>

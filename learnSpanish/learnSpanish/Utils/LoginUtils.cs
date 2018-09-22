@@ -1,5 +1,3 @@
-using System.ComponentModel.Design;
-using System.Linq;
 using System.Text;
 using learnSpanish.Model;
 
@@ -9,8 +7,8 @@ namespace learnSpanish.utils
     {
         public static string CheckLogin(Login login)
         {
-            StringBuilder message = new StringBuilder("You need send your: ");
-            bool isValidLogin = true;
+            var message = new StringBuilder("You need send your: ");
+            var isValidLogin = true;
 
             if (string.IsNullOrEmpty(login.User))
             {

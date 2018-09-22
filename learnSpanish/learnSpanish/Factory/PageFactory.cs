@@ -1,8 +1,7 @@
 using System;
 using learnSpanish.Enums.View;
+using learnSpanish.View;
 using Xamarin.Forms;
-using LoginPage = learnSpanish.View.LoginPage;
-using MainPage = learnSpanish.View.MainPage;
 
 namespace learnSpanish.Factory
 {

@@ -1,8 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.Windows.Input;
 using learnSpanish.Enums.Error;
 using learnSpanish.Enums.Service;
 using learnSpanish.Enums.View;
+using learnSpanish.Exceptions;
 using learnSpanish.Model;
 using learnSpanish.ModelView.Services;
 using learnSpanish.Sqlite;
@@ -60,9 +62,11 @@ namespace learnSpanish.ModelView
                 return;
             }
 
+            var values = new Dictionary<string, string> {{"login_user", login.User}};
+
             try
             {
-                var loginRegistered = await _sqliteService.GetObjectByUniqueName<Login>(login.User);
+                var loginRegistered = await _sqliteService.GetObjectByUniqueValue<Login>(values);
                 if (!loginRegistered.Password.Equals(login.Password))
                 {
                     await _messageService.ShowMessageError(
@@ -72,9 +76,14 @@ namespace learnSpanish.ModelView
 
                 await _navigationService.NavigationWithoutBackButton(ViewName.MainPage);
             }
+            catch (SqliteServiceException e)
+            {
+                Logs.Logs.Error(e.Message);
+                await _messageService.ShowMessageError(EnumsService.GetMessageErrorUser(ErrorUser.WrongCredentials));
+            }
             catch (Exception e)
             {
-                Logs.Logs.Error($"Error in authenticate user ==> {e.Message}");
+                Logs.Logs.Error(e.Message);
                 await _messageService.ShowMessageError(EnumsService.GetMessageErrorSystem(ErrorSystem.Generic));
             }
         }

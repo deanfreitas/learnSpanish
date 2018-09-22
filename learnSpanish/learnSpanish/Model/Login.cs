@@ -22,6 +22,7 @@ namespace learnSpanish.Model
         }
 
         [PrimaryKey, AutoIncrement, Column("login_id")]
+        [Indexed]
         public int Id { get; set; }
 
         [Unique, NotNull, Column("login_user")]

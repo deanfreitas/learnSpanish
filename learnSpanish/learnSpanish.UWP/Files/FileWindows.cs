@@ -15,7 +15,7 @@ namespace learnSpanish.UWP.Files
         public string GetPathFile()
         {
             var path = ApplicationData.Current.LocalFolder.Path;
-            var dbPath = Path.Combine(path, ConstantsSQLite.NameFile);
+            var dbPath = Path.Combine(path, ConstantsSqlite.NameFile);
             Logs.Logs.Error("Path: " + dbPath);
 
             if (File.Exists(dbPath)) return dbPath;

@@ -9,7 +9,6 @@ namespace learnSpanish.View.Services
     {
         public async Task ShowMessageError(string message)
         {
-            Console.WriteLine(message);
             await Application.Current.MainPage.DisplayAlert("Error", message, "Ok");
         }
     }

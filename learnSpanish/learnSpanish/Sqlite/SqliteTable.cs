@@ -1,8 +1,6 @@
 using System;
 using System.Threading.Tasks;
-using learnSpanish.Model;
 using SQLite;
-using Xamarin.Forms.Internals;
 
 namespace learnSpanish.Sqlite
 {
@@ -25,6 +23,7 @@ namespace learnSpanish.Sqlite
             }
             catch (Exception e)
             {
+                Logs.Logs.Error($"Error get count table {typeof(T).Name}: {e.Message}");
                 return false;
             }
         }
@@ -32,7 +31,7 @@ namespace learnSpanish.Sqlite
         public async void CreateTable<T>() where T : new()
         {
             var connection = _sqliteWrapper.OpenDatabase();
-            
+
             if (await CheckIfExistTable<T>())
             {
                 Logs.Logs.Info($"This table {typeof(T).Name} was created");
@@ -46,7 +45,7 @@ namespace learnSpanish.Sqlite
             }
             else
             {
-                throw new Exception("Error create table");
+                throw new Exception($"Error create table {typeof(T).Name}");
             }
         }
     }
