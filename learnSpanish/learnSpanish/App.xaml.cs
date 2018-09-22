@@ -2,7 +2,6 @@
 using learnSpanish.Model;
 using learnSpanish.ModelView.Services;
 using learnSpanish.Sqlite;
-using learnSpanish.Sqlite.Interface;
 using learnSpanish.View;
 using learnSpanish.View.Services;
 using Xamarin.Forms;
@@ -28,12 +27,12 @@ namespace learnSpanish
             try
             {
                 var sqliteTable = new SqliteTable();
-
+                
                 sqliteTable.CreateTable<Login>();
-
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
-                Logs.Logs.Error($"Error init aplication ==> {e.Message}");
+                Logs.Logs.Error($"Error init application ==> {e.Message}");
             }
         }
 

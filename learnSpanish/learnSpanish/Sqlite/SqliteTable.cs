@@ -15,24 +15,31 @@ namespace learnSpanish.Sqlite
             _sqliteWrapper = new SqliteWrapper();
         }
 
-        private bool CheckIfExistTable<T>() where T : new()
+        private async Task<bool> CheckIfExistTable<T>() where T : new()
         {
             var connection = _sqliteWrapper.OpenDatabase();
-            
-            var result = connection.Table<T>().CountAsync().Result;
-            return result > 0;
+            try
+            {
+                var result = await connection.Table<T>().CountAsync();
+                return result.Equals(0);
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
         }
 
-        public void CreateTable<T>() where T : new()
+        public async void CreateTable<T>() where T : new()
         {
             var connection = _sqliteWrapper.OpenDatabase();
             
-            if (CheckIfExistTable<T>())
+            if (await CheckIfExistTable<T>())
             {
+                Logs.Logs.Info($"This table {typeof(T).Name} was created");
                 return;
             }
 
-            var createTableResult = connection.CreateTableAsync<T>().Result;
+            var createTableResult = await connection.CreateTableAsync<T>();
             if (createTableResult == CreateTableResult.Created)
             {
                 Logs.Logs.Info($"Create table {typeof(T).Name}");

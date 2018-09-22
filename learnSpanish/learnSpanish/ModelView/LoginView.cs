@@ -49,32 +49,33 @@ namespace learnSpanish.ModelView
 
         public ICommand AuthenticateCommand { get; set; }
 
-        private void Authenticate()
+        private async void Authenticate()
         {
             var login = new Login(_user, _password);
             var message = LoginUtils.CheckLogin(login);
-            
+
             if (!string.IsNullOrEmpty(message))
             {
-                _messageService.ShowMessageError(message);
+                await _messageService.ShowMessageError(message);
                 return;
             }
 
-            var loginRegistered = _sqliteService.GetObjectByUniqueName<Login>(login.User);
-
             try
             {
+                var loginRegistered = await _sqliteService.GetObjectByUniqueName<Login>(login.User);
                 if (!loginRegistered.Password.Equals(login.Password))
                 {
-                    _messageService.ShowMessageError(EnumsService.GetMessageErrorUser(ErrorUser.WrongCredentials));
+                    await _messageService.ShowMessageError(
+                        EnumsService.GetMessageErrorUser(ErrorUser.WrongCredentials));
                     return;
                 }
 
-                _navigationService.NavigationWithoutBackButton(ViewName.MainPage);
-            } catch (Exception e)
+                await _navigationService.NavigationWithoutBackButton(ViewName.MainPage);
+            }
+            catch (Exception e)
             {
                 Logs.Logs.Error($"Error in authenticate user ==> {e.Message}");
-                _messageService.ShowMessageError(EnumsService.GetMessageErrorSystem(ErrorSystem.Generic));
+                await _messageService.ShowMessageError(EnumsService.GetMessageErrorSystem(ErrorSystem.Generic));
             }
         }
     }
