@@ -1,10 +1,45 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:modelView="clr-namespace:learnSpanish.ModelView"
              x:Class="learnSpanish.View.RegisterPage">
+    <ContentPage.BindingContext>
+        <modelView:RegisterView/>
+    </ContentPage.BindingContext>
   <ContentPage.Content>
-      <StackLayout>
-          <Label Text="Hello Xamarin.Forms!" />
-      </StackLayout>
-  </ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+          <Label Text="Welcome!" />
+            <Label Text="Create your account now"/>
+
+            <Entry x:Name="Name" Text="{Binding Name}" Placeholder="Name"
+                       PlaceholderColor="Black" HeightRequest="40"
+                       Keyboard="Text"
+                       TextColor="Black" />
+
+            <Entry x:Name="User" Text="{Binding User}" Placeholder="User"
+                       PlaceholderColor="Black" HeightRequest="40"
+                       Keyboard="Text"
+                       TextColor="Black" />
+
+            <Entry x:Name="Email" Text="{Binding Email}" Placeholder="E-mail"     
+                       PlaceholderColor="Black" HeightRequest="40"
+                       Keyboard="Text"
+                       TextColor="Black" />
+
+            <Entry x:Name="Password" Text="{Binding Password}" Placeholder="Password"     
+                       PlaceholderColor="Black" HeightRequest="40"
+                       Keyboard="Text"
+                       TextColor="Black" />
+
+            <Entry x:Name="ConfirmPassword" Text="{Binding ConfirmPassword}" Placeholder="confirm your password"     
+                       PlaceholderColor="Black" HeightRequest="40"
+                       Keyboard="Text"
+                       TextColor="Black" />
+
+            <Button Text="Create" />
+            <Button Text="Cancel" />
+        </StackLayout>
+            </ScrollView>
+    </ContentPage.Content>
 </ContentPage>
