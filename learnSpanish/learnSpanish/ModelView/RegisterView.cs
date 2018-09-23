@@ -13,10 +13,11 @@ namespace learnSpanish.ModelView
     {
         private string _name;
         private string _email;
+        private bool _isValidEmail;
         private string _user;
         private string _password;
-        private bool _isValidEmail;
         private string _confirmPassword;
+        private bool _isValidConfirmedPassword;
 
         private readonly IMessageService _messageService;
         private readonly INavigationService _navigationService;
@@ -87,6 +88,16 @@ namespace learnSpanish.ModelView
             set
             {
                 _confirmPassword = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public bool IsValidConfirmedPassword
+        {
+            get => _isValidConfirmedPassword;
+            set
+            {
+                _isValidConfirmedPassword = value;
                 NotifyPropertyChanged();
             }
         }

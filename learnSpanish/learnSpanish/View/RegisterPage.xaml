@@ -34,7 +34,7 @@
                        Keyboard="Text"
                        TextColor="Black">
                     <Entry.Behaviors>
-                        <behavior:EmailValidatorBehavior x:Name="EmailValidatorBehavior" />
+                        <behavior:EmailValidatorBehavior x:Name="EmailValidatorBehavior" IsValid="{Binding IsValidEmail, Mode=TwoWay}" />
                     </Entry.Behaviors>
                 </Entry>
 
