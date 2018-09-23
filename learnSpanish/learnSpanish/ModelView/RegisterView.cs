@@ -15,6 +15,7 @@ namespace learnSpanish.ModelView
         private string _email;
         private string _user;
         private string _password;
+        private bool _isValidEmail;
         private string _confirmPassword;
 
         private readonly IMessageService _messageService;
@@ -46,6 +47,16 @@ namespace learnSpanish.ModelView
             set
             {
                 _email = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public bool IsValidEmail
+        {
+            get => _isValidEmail;
+            set
+            {
+                _isValidEmail = value;
                 NotifyPropertyChanged();
             }
         }
