@@ -24,6 +24,7 @@ namespace learnSpanish.ModelView
         public LoginView()
         {
             AuthenticateCommand = new Command(Authenticate);
+            RegisterCommand = new Command(Register);
             _sqliteService = new SqliteService();
             _messageService = DependencyService.Get<IMessageService>();
             _navigationService = DependencyService.Get<INavigationService>();
@@ -50,6 +51,7 @@ namespace learnSpanish.ModelView
         }
 
         public ICommand AuthenticateCommand { get; set; }
+        public ICommand RegisterCommand { get; set; }
 
         private async void Authenticate()
         {
@@ -85,7 +87,12 @@ namespace learnSpanish.ModelView
             {
                 Logs.Logs.Error(e.Message);
                 await _messageService.ShowMessageError(EnumsService.GetMessageErrorSystem(ErrorSystem.Generic));
-            }
+            } 
+        }
+
+        private async void Register()
+        {
+            await _navigationService.NavigationWithoutBackButton(ViewName.RegisterPage);
         }
     }
 }

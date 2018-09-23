@@ -19,6 +19,9 @@ namespace learnSpanish.Factory
                 case ViewName.MainPage:
                     page = new MainPage();
                     break;
+                case ViewName.RegisterPage:
+                    page = new RegisterPage();
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(viewName), viewName, null);
             }
