@@ -1,45 +1,92 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:modelView="clr-namespace:learnSpanish.ModelView"
+             xmlns:eventTriggerButton="clr-namespace:learnSpanish.Trigger.EventTrigger.ButtonEvent"
+             xmlns:multiTrigger="clr-namespace:learnSpanish.Trigger.MultiTrigger"
              x:Class="learnSpanish.View.RegisterPage">
+
     <ContentPage.BindingContext>
-        <modelView:RegisterView/>
+        <modelView:RegisterView />
     </ContentPage.BindingContext>
-  <ContentPage.Content>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <multiTrigger:CheckFieldsEmpty x:Key="CheckFieldsEmpty" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
         <ScrollView>
             <StackLayout>
-          <Label Text="Welcome!" />
-            <Label Text="Create your account now"/>
+                <Label Text="Welcome!" />
+                <Label Text="Create your account now" />
 
-            <Entry x:Name="Name" Text="{Binding Name}" Placeholder="Name"
+                <Entry x:Name="Name" Text="{Binding Name}" Placeholder="Name"
                        PlaceholderColor="Black" HeightRequest="40"
                        Keyboard="Text"
                        TextColor="Black" />
 
-            <Entry x:Name="User" Text="{Binding User}" Placeholder="User"
+                <Entry x:Name="Email" Text="{Binding Email}" Placeholder="E-mail"
                        PlaceholderColor="Black" HeightRequest="40"
                        Keyboard="Text"
                        TextColor="Black" />
 
-            <Entry x:Name="Email" Text="{Binding Email}" Placeholder="E-mail"     
+                <Entry x:Name="User" Text="{Binding User}" Placeholder="User"
                        PlaceholderColor="Black" HeightRequest="40"
                        Keyboard="Text"
                        TextColor="Black" />
 
-            <Entry x:Name="Password" Text="{Binding Password}" Placeholder="Password"     
+                <Entry x:Name="Password" Text="{Binding Password}" Placeholder="Password"
                        PlaceholderColor="Black" HeightRequest="40"
                        Keyboard="Text"
-                       TextColor="Black" />
+                       TextColor="Black"
+                       IsPassword="True" />
 
-            <Entry x:Name="ConfirmPassword" Text="{Binding ConfirmPassword}" Placeholder="confirm your password"     
+                <Entry x:Name="ConfirmPassword" Text="{Binding ConfirmPassword}" Placeholder="confirm your password"
                        PlaceholderColor="Black" HeightRequest="40"
                        Keyboard="Text"
-                       TextColor="Black" />
+                       TextColor="Black"
+                       IsPassword="True" />
 
-            <Button Text="Create" />
-            <Button Text="Cancel" />
-        </StackLayout>
-            </ScrollView>
+                <Button Text="Create" IsEnabled="False">
+                    <Button.Triggers>
+                        <EventTrigger Event="Clicked">
+                            <eventTriggerButton:Action />
+                        </EventTrigger>
+                        <MultiTrigger TargetType="Button">
+                            <MultiTrigger.Conditions>
+                                <BindingCondition
+                                    Binding="{Binding Source={x:Reference Name}, Path=Text.Length, Converter={StaticResource CheckFieldsEmpty}}"
+                                    Value="true" />
+                                <BindingCondition
+                                    Binding="{Binding Source={x:Reference Email}, Path=Text.Length, Converter={StaticResource CheckFieldsEmpty}}"
+                                    Value="true" />
+                                <BindingCondition
+                                    Binding="{Binding Source={x:Reference User}, Path=Text.Length, Converter={StaticResource CheckFieldsEmpty}}"
+                                    Value="true" />
+                                <BindingCondition
+                                    Binding="{Binding Source={x:Reference Password}, Path=Text.Length, Converter={StaticResource CheckFieldsEmpty}}"
+                                    Value="true" />
+                                <BindingCondition
+                                    Binding="{Binding Source={x:Reference ConfirmPassword}, Path=Text.Length, Converter={StaticResource CheckFieldsEmpty}}"
+                                    Value="true" />
+                            </MultiTrigger.Conditions>
+                            <Setter Property="IsEnabled" Value="true" />
+                            <Setter Property="Command" Value="{Binding CreateCommand}" />
+                        </MultiTrigger>
+                    </Button.Triggers>
+                </Button>
+
+                <Button Text="Cancel" Command="{Binding CancelCommand}">
+                    <Button.Triggers>
+                        <EventTrigger Event="Clicked">
+                            <eventTriggerButton:Action />
+                        </EventTrigger>
+                    </Button.Triggers>
+                </Button>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

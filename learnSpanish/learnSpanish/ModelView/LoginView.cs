@@ -17,6 +17,7 @@ namespace learnSpanish.ModelView
     {
         private string _user;
         private string _password;
+        
         private readonly IMessageService _messageService;
         private readonly INavigationService _navigationService;
         private readonly SqliteService _sqliteService;
@@ -64,11 +65,9 @@ namespace learnSpanish.ModelView
                 return;
             }
 
-            var values = new Dictionary<string, string> {{"login_user", login.User}};
-
             try
             {
-                var loginRegistered = await _sqliteService.GetObjectByUniqueValue<Login>(values);
+                var loginRegistered = await _sqliteService.GetObjectByUniqueValue<Login>(l => l.User == login.User);
                 if (!loginRegistered.Password.Equals(login.Password))
                 {
                     await _messageService.ShowMessageError(

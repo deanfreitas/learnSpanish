@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using learnSpanish.Enums.Sql;
 using learnSpanish.Exceptions;
@@ -23,26 +24,23 @@ namespace learnSpanish.Sqlite
 
             if (result == null)
             {
-                throw new SqliteServiceException(TableSql.Select, typeof(T).Name, $"not found id = {id}");
+                throw new SqliteServiceException(TableSql.Select, typeof(T).Name, $"Not found id = {id}");
             }
 
             return result;
         }
 
-        public async Task<T> GetObjectByUniqueValue<T>(Dictionary<string, string> values) where T : new()
+        public async Task<T> GetObjectByUniqueValue<T>(Expression<Func<T, bool>> predicate) where T : new()
         {
             var connection = _sqliteWrapper.OpenDatabase();
-            var result = await connection.QueryAsync<T>(
-                $"SELECT * FROM {typeof(T).Name} WHERE {values.Keys.FirstOrDefault()}=?",
-                values.Values.FirstOrDefault());
+            var result = await connection.FindAsync<T>(predicate);
 
-            if (result == null || !result.Any())
+            if (result == null)
             {
-                throw new SqliteServiceException(TableSql.Select, typeof(T).Name,
-                    $"This {values.Keys.FirstOrDefault()} not exist in database");
+                throw new SqliteServiceException(TableSql.Select, typeof(T).Name, "Not found value in this table");
             }
 
-            return result[0];
+            return result;
         }
 
         public async Task<List<T>> GetListObject<T>() where T : new()
@@ -83,7 +81,7 @@ namespace learnSpanish.Sqlite
 
             if (!result.Equals(1))
             {
-                throw new SqliteServiceException(TableSql.Insert, typeof(T).Name, $"rows add: {result}");
+                throw new SqliteServiceException(TableSql.Insert, typeof(T).Name, $"Rows add: {result}");
             }
         }
 
@@ -94,7 +92,7 @@ namespace learnSpanish.Sqlite
 
             if (!result.Equals(1))
             {
-                throw new SqliteServiceException(TableSql.Update, typeof(T).Name, $"rows updated: {result}");
+                throw new SqliteServiceException(TableSql.Update, typeof(T).Name, $"Rows updated: {result}");
             }
         }
 
@@ -105,7 +103,7 @@ namespace learnSpanish.Sqlite
 
             if (!result.Equals(1))
             {
-                throw new SqliteServiceException(TableSql.Delete, typeof(T).Name, $"rows deleted: {result}");
+                throw new SqliteServiceException(TableSql.Delete, typeof(T).Name, $"Rows deleted: {result}");
             }
         }
     }
