@@ -34,7 +34,8 @@
                        Keyboard="Text"
                        TextColor="Black">
                     <Entry.Behaviors>
-                        <behavior:EmailValidatorBehavior x:Name="EmailValidatorBehavior" IsValid="{Binding IsValidEmail, Mode=TwoWay}" />
+                        <behavior:EmailValidatorBehavior x:Name="EmailValidatorBehavior"
+                                                         IsValid="{Binding IsValidEmail, Mode=TwoWay}" />
                     </Entry.Behaviors>
                 </Entry>
 
@@ -49,11 +50,18 @@
                        TextColor="Black"
                        IsPassword="True" />
 
-                <Entry x:Name="ConfirmPassword" Text="{Binding ConfirmPassword}" Placeholder="confirm your password"
+                <Entry x:Name="ConfirmPassword" Text="{Binding ConfirmPassword, Mode=TwoWay}"
+                       Placeholder="confirm your password"
                        PlaceholderColor="Black" HeightRequest="40"
                        Keyboard="Text"
                        TextColor="Black"
-                       IsPassword="True" />
+                       IsPassword="True">
+                    <Entry.Behaviors>
+                        <behavior:ConfirmPasswordBehavior x:Name="ConfirmPasswordBehavior"
+                                                          CompareToEntry="{Binding Source={x:Reference Password}}"
+                                                          IsValid="{Binding IsValidConfirmedPassword, Mode=TwoWay} " />
+                    </Entry.Behaviors>
+                </Entry>
 
                 <Button Text="Create" IsEnabled="False">
                     <Button.Triggers>
@@ -75,7 +83,7 @@
                                     Binding="{Binding Source={x:Reference Password}, Path=Text.Length, Converter={StaticResource CheckFieldsEmpty}}"
                                     Value="true" />
                                 <BindingCondition
-                                    Binding="{Binding Source={x:Reference ConfirmPassword}, Path=Text.Length, Converter={StaticResource CheckFieldsEmpty}}"
+                                    Binding="{Binding Source={x:Reference ConfirmPasswordBehavior}, Path=IsValid}"
                                     Value="true" />
                             </MultiTrigger.Conditions>
                             <Setter Property="IsEnabled" Value="true" />
