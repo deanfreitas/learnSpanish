@@ -26,8 +26,6 @@ namespace learnSpanish
         {
             try
             {
-                var sqliteTable = new SqliteTable();
-                sqliteTable.CreateTable<Login>();
             }
             catch (Exception e)
             {

@@ -1,6 +1,6 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
-using SQLite;
 
 namespace learnSpanish.Sqlite
 {
@@ -39,7 +39,9 @@ namespace learnSpanish.Sqlite
             }
 
             var createTableResult = await connection.CreateTableAsync<T>();
-            if (createTableResult == CreateTableResult.Created)
+            var value = createTableResult.Results.Values.FirstOrDefault();
+            
+            if (value.Equals(1))
             {
                 Logs.Logs.Info($"Create table {typeof(T).Name}");
             }

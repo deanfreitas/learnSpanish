@@ -17,7 +17,11 @@ namespace learnSpanish.Droid.Files
             var dbPath = Path.Combine(path, ConstantsSqlite.NameFile);
             Logs.Logs.Error("Path: " + dbPath);
 
-            if (File.Exists(dbPath)) return dbPath;
+            if (File.Exists(dbPath))
+            {
+                File.Delete(dbPath);
+                // return dbPath;
+            }
 
             File.Create(dbPath);
 

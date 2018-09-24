@@ -22,13 +22,11 @@ namespace learnSpanish.Model
         }
 
         [PrimaryKey, AutoIncrement, Column("login_id")]
-        [Indexed]
         public int Id { get; set; }
 
         [Unique, NotNull, Column("login_user")]
         public string User { get; set; }
 
-        [NotNull, Column("login_password")]
-        public string Password { get; set; }
+        [NotNull, Column("login_password")] public string Password { get; set; }
     }
 }

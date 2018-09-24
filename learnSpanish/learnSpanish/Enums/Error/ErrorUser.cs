@@ -2,6 +2,8 @@ namespace learnSpanish.Enums.Error
 {
     public enum ErrorUser
     {
-        WrongCredentials
+        WrongCredentials,
+        WrongEmail,
+        UnconfirmedPassword
     }
 }

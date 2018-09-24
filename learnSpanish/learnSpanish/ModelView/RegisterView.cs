@@ -2,9 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
+using learnSpanish.Enums.Error;
+using learnSpanish.Enums.Service;
 using learnSpanish.Enums.View;
+using learnSpanish.Model;
 using learnSpanish.ModelView.Services;
 using learnSpanish.Sqlite;
+using learnSpanish.utils;
 using Xamarin.Forms;
 
 namespace learnSpanish.ModelView
@@ -107,6 +111,35 @@ namespace learnSpanish.ModelView
 
         private async void Create()
         {
+            if (!IsValidEmail)
+            {
+                await _messageService.ShowMessageError(EnumsService.GetMessageErrorUser(ErrorUser.WrongEmail));
+            }
+
+            if (!IsValidConfirmedPassword)
+            {
+                await _messageService.ShowMessageError(EnumsService.GetMessageErrorUser(ErrorUser.UnconfirmedPassword));
+            }
+
+            var user = new User(Name, Email, new Login(User, Password));
+
+            var message = UserUtils.CheckUser(user);
+
+            if (!string.IsNullOrEmpty(message))
+            {
+                await _messageService.ShowMessageError(message);
+                return;
+            }
+
+            try
+            {
+                // await _sqliteService.Insert<User>(user);
+            }
+            catch (Exception e)
+            {
+                Logs.Logs.Error(e.Message);
+                await _messageService.ShowMessageError(EnumsService.GetMessageErrorSystem(ErrorSystem.Generic));
+            }
         }
 
         private async void Cancel()

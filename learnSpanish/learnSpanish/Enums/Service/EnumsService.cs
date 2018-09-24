@@ -11,6 +11,8 @@ namespace learnSpanish.Enums.Service
             switch (errorUser)
             {
                 case ErrorUser.WrongCredentials: return "Your user or password is wrong";
+                case ErrorUser.WrongEmail: return "Email in the wrong format";
+                case ErrorUser.UnconfirmedPassword: return "Password has not been confirmed";
                 default: throw new ArgumentOutOfRangeException(nameof(errorUser), errorUser, null);
             }
         }

@@ -56,8 +56,8 @@ namespace learnSpanish.ModelView
 
         private async void Authenticate()
         {
-            var login = new Login(_user, _password);
-            var message = LoginUtils.CheckLogin(login);
+            var login = new Login(User, Password);
+            var message = UserUtils.CheckLogin(login);
 
             if (!string.IsNullOrEmpty(message))
             {

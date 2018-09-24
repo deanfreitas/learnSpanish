@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using learnSpanish.Enums.Sql;
 using learnSpanish.Exceptions;
+using SQLiteNetExtensionsAsync.Extensions;
 
 namespace learnSpanish.Sqlite
 {
@@ -74,7 +75,7 @@ namespace learnSpanish.Sqlite
             return result;
         }
 
-        public async void Insert<T>(object o) where T : new()
+        public async Task Insert<T>(object o) where T : new()
         {
             var connection = _sqliteWrapper.OpenDatabase();
             var result = await connection.InsertAsync(o);
@@ -85,7 +86,13 @@ namespace learnSpanish.Sqlite
             }
         }
 
-        public async void Update<T>(object o) where T : new()
+        public async Task InsertWithChildren(object o)
+        {
+            var connection = _sqliteWrapper.OpenDatabase();
+            await connection.InsertWithChildrenAsync(o, recursive: true);
+        }
+
+        public async Task Update<T>(object o) where T : new()
         {
             var connection = _sqliteWrapper.OpenDatabase();
             var result = await connection.UpdateAsync(o);
@@ -96,10 +103,10 @@ namespace learnSpanish.Sqlite
             }
         }
 
-        public async void Delete<T>(int id) where T : new()
+        public async Task Delete<T>(object o) where T : new()
         {
             var connection = _sqliteWrapper.OpenDatabase();
-            var result = await connection.DeleteAsync<T>(id);
+            var result = await connection.DeleteAsync(o);
 
             if (!result.Equals(1))
             {
