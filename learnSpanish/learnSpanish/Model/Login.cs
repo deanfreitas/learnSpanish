@@ -1,4 +1,5 @@
 using SQLite;
+using SQLiteNetExtensions.Attributes;
 
 namespace learnSpanish.Model
 {
@@ -8,25 +9,30 @@ namespace learnSpanish.Model
         {
         }
 
-        public Login(string user, string password)
+        public Login(string userName, string password)
         {
-            User = user;
+            UserName = userName;
             Password = password;
         }
 
-        public Login(int id, string user, string password)
+        public Login(int id, string userName, string password)
         {
             Id = id;
-            User = user;
+            UserName = userName;
             Password = password;
         }
 
         [PrimaryKey, AutoIncrement, Column("login_id")]
+        [Indexed(Name = "LoginId", Order = 2, Unique = true)]
         public int Id { get; set; }
 
-        [Unique, NotNull, Column("login_user")]
-        public string User { get; set; }
+        [NotNull, Column("login_user")]
+        [Indexed(Name = "LoginId", Order = 1, Unique = true)]
+        public string UserName { get; set; }
 
         [NotNull, Column("login_password")] public string Password { get; set; }
+        
+        [OneToOne("login_id", "Login")]
+        public User User { get; set; }
     }
 }

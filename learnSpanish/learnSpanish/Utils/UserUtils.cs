@@ -10,7 +10,7 @@ namespace learnSpanish.utils
             var message = new StringBuilder("You need send your: ");
             var isValidLogin = true;
 
-            if (string.IsNullOrEmpty(login.User))
+            if (string.IsNullOrEmpty(login.UserName))
             {
                 message.AppendLine("User");
                 isValidLogin = false;
@@ -42,7 +42,7 @@ namespace learnSpanish.utils
                 isValidUser = false;
             }
             
-            if (string.IsNullOrEmpty(user.Login.User))
+            if (string.IsNullOrEmpty(user.Login.UserName))
             {
                 message.AppendLine("User");
                 isValidUser = false;

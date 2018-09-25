@@ -21,7 +21,7 @@ namespace learnSpanish.Sqlite
                 return _connection;
             }
 
-            _connection = new SQLiteAsyncConnection(_dbPath, SQLiteOpenFlags.Create | SQLiteOpenFlags.ReadWrite);
+            _connection = new SQLiteAsyncConnection(_dbPath);
             return _connection;
         }
     }

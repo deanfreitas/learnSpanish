@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Input;
 using learnSpanish.Enums.Error;
 using learnSpanish.Enums.Service;
@@ -133,7 +131,7 @@ namespace learnSpanish.ModelView
 
             try
             {
-                // await _sqliteService.Insert<User>(user);
+                await _sqliteService.InsertWithChildren(user);
             }
             catch (Exception e)
             {

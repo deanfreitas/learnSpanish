@@ -38,6 +38,8 @@ namespace learnSpanish.Sqlite
                 return;
             }
 
+            connection.CreateTableAsync<T>().Wait();
+            return;
             var createTableResult = await connection.CreateTableAsync<T>();
             var value = createTableResult.Results.Values.FirstOrDefault();
             

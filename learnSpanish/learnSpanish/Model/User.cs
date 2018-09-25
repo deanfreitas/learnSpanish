@@ -27,14 +27,19 @@ namespace learnSpanish.Model
         [PrimaryKey, AutoIncrement, Column("user_id")]
         public int Id { get; set; }
 
-        [NotNull, Column("user_name")] public string Name { get; set; }
+        [NotNull, Column("user_name")]
+        [Indexed(Name = "UserId", Order = 3, Unique = true)]
+        public string Name { get; set; }
 
-        [NotNull, Column("user_email")] public string Email { get; set; }
+        [NotNull, Column("user_email")]
+        [Indexed(Name = "UserId", Order = 2, Unique = true)]
+        public string Email { get; set; }
 
-        [ForeignKey(typeof(Login)), NotNull, Column("id_login"), Indexed]
-        public string LoginId { get; set; }
+        [ForeignKey(typeof(Login)), NotNull, Column("login_id")]
+        [Indexed(Name = "UserId", Order = 1, Unique = true)]
+        public int LoginId { get; set; }
 
-        [OneToOne(CascadeOperations = CascadeOperation.All)]
+        [OneToOne("login_id", "User", CascadeOperations = CascadeOperation.All, ReadOnly = false)]
         public Login Login { get; set; }
     }
 }

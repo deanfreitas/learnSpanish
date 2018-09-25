@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Windows.Input;
 using learnSpanish.Enums.Error;
 using learnSpanish.Enums.Service;
@@ -67,7 +66,7 @@ namespace learnSpanish.ModelView
 
             try
             {
-                var loginRegistered = await _sqliteService.GetObjectByUniqueValue<Login>(l => l.User == login.User);
+                var loginRegistered = await _sqliteService.GetObjectByUniqueValue<Login>(l => l.UserName == login.UserName);
                 if (!loginRegistered.Password.Equals(login.Password))
                 {
                     await _messageService.ShowMessageError(
