@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using learnSpanish.ModelView.Services;
 using Xamarin.Forms;

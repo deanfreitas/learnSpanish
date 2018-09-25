@@ -34,7 +34,7 @@ namespace learnSpanish.Sqlite
         public async Task<T> GetObjectByUniqueValue<T>(Expression<Func<T, bool>> predicate) where T : new()
         {
             var connection = _sqliteWrapper.OpenDatabase();
-            var result = await connection.FindAsync<T>(predicate);
+            var result = await connection.FindAsync(predicate);
 
             if (result == null)
             {
