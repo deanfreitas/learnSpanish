@@ -4,6 +4,8 @@ namespace learnSpanish.Enums.Error
     {
         WrongCredentials,
         WrongEmail,
-        UnconfirmedPassword
+        UnconfirmedPassword,
+        ExistEmail,
+        ExistUserName
     }
 }

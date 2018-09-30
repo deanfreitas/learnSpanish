@@ -30,7 +30,8 @@ namespace learnSpanish.Model
         [Indexed(Name = "LoginId", Order = 1, Unique = true)]
         public string UserName { get; set; }
 
-        [NotNull, Column("login_password")] public string Password { get; set; }
+        [NotNull, Column("login_password")]
+        public string Password { get; set; }
         
         [OneToOne("login_id", "Login")]
         public User User { get; set; }

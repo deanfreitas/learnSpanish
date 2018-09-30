@@ -28,7 +28,6 @@ namespace learnSpanish.Model
         public int Id { get; set; }
 
         [NotNull, Column("user_name")]
-        [Indexed(Name = "UserId", Order = 3, Unique = true)]
         public string Name { get; set; }
 
         [NotNull, Column("user_email")]

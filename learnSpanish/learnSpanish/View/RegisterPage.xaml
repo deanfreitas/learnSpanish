@@ -39,7 +39,7 @@
                     </Entry.Behaviors>
                 </Entry>
 
-                <Entry x:Name="User" Text="{Binding User}" Placeholder="User"
+                <Entry x:Name="User" Text="{Binding UserName}" Placeholder="User"
                        PlaceholderColor="Black" HeightRequest="40"
                        Keyboard="Text"
                        TextColor="Black" />

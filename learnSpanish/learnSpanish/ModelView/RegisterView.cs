@@ -1,12 +1,15 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using learnSpanish.Enums.Error;
 using learnSpanish.Enums.Service;
+using learnSpanish.Enums.Success;
 using learnSpanish.Enums.View;
 using learnSpanish.Model;
 using learnSpanish.ModelView.Services;
 using learnSpanish.Sqlite;
 using learnSpanish.utils;
+using SQLite;
 using Xamarin.Forms;
 
 namespace learnSpanish.ModelView
@@ -16,7 +19,7 @@ namespace learnSpanish.ModelView
         private string _name;
         private string _email;
         private bool _isValidEmail;
-        private string _user;
+        private string _userName;
         private string _password;
         private string _confirmPassword;
         private bool _isValidConfirmedPassword;
@@ -64,12 +67,12 @@ namespace learnSpanish.ModelView
             }
         }
 
-        public string User
+        public string UserName
         {
-            get => _user;
+            get => _userName;
             set
             {
-                _user = value;
+                _userName = value;
                 NotifyPropertyChanged();
             }
         }
@@ -109,33 +112,20 @@ namespace learnSpanish.ModelView
 
         private async void Create()
         {
-            if (!IsValidEmail)
-            {
-                await _messageService.ShowMessageError(EnumsService.GetMessageErrorUser(ErrorUser.WrongEmail));
-            }
-
-            if (!IsValidConfirmedPassword)
-            {
-                await _messageService.ShowMessageError(EnumsService.GetMessageErrorUser(ErrorUser.UnconfirmedPassword));
-            }
-
-            var user = new User(Name, Email, new Login(User, Password));
-
-            var message = UserUtils.CheckUser(user);
-
-            if (!string.IsNullOrEmpty(message))
-            {
-                await _messageService.ShowMessageError(message);
-                return;
-            }
+            var user = new User(Name, Email, new Login(UserName, Password));
+            if (!await CheckRequiredParameters(user)) return;
+            if (await CheckIsExistEmail(user.Email)) return;
+            if (await CheckIsExistUserName(user.Login.UserName)) return;
 
             try
             {
                 await _sqliteService.InsertWithChildren(user);
+                await _messageService.ShowMessage(
+                    EnumsService.GetMessageSuccessUser(SuccessUser.UserRegistered, user.Name));
             }
             catch (Exception e)
             {
-                Logs.Logs.Error(e.Message);
+                Logs.Logs.Error(e);
                 await _messageService.ShowMessageError(EnumsService.GetMessageErrorSystem(ErrorSystem.Generic));
             }
         }
@@ -143,6 +133,60 @@ namespace learnSpanish.ModelView
         private async void Cancel()
         {
             await _navigationService.NavigationWithoutBackButton(ViewName.LoginPage);
+        }
+
+        private async Task<bool> CheckRequiredParameters(User user)
+        {
+            var message = UserUtils.CheckUser(user);
+
+            if (!IsValidEmail)
+            {
+                await _messageService.ShowMessageError(EnumsService.GetMessageErrorUser(ErrorUser.WrongEmail));
+            }
+            else if (!IsValidConfirmedPassword)
+            {
+                await _messageService.ShowMessageError(EnumsService.GetMessageErrorUser(ErrorUser.UnconfirmedPassword));
+            }
+            else if (!string.IsNullOrEmpty(message))
+            {
+                await _messageService.ShowMessageError(message);
+            }
+            else
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private async Task<bool> CheckIsExistEmail(string email)
+        {
+            try
+            {
+                await _sqliteService.GetObjectByUniqueValue<User>(u => u.Email.StartsWith(email, StringComparison.OrdinalIgnoreCase));
+                await _messageService.ShowMessageError(EnumsService.GetMessageErrorUser(ErrorUser.ExistEmail));
+                return true;
+            }
+            catch (Exception e)
+            {
+                Logs.Logs.Error(e);
+                return false;
+            }
+        }
+
+        private async Task<bool> CheckIsExistUserName(string userName)
+        {
+            try
+            {
+                await _sqliteService.GetObjectByUniqueValue<Login>(l => l.UserName.StartsWith(userName, StringComparison.OrdinalIgnoreCase));
+                await _messageService.ShowMessageError(EnumsService.GetMessageErrorUser(ErrorUser.ExistUserName));
+                return true;
+            }
+            catch (Exception e)
+            {
+                Logs.Logs.Error(e);
+                return false;
+            }
         }
     }
 }

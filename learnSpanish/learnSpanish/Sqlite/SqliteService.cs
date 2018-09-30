@@ -49,6 +49,7 @@ namespace learnSpanish.Sqlite
             var connection = _sqliteWrapper.OpenDatabase();
             var result = await connection.Table<T>().ToListAsync();
 
+            
             if (result == null)
             {
                 throw new SqliteServiceException(TableSql.Select, typeof(T).Name, "Not found values in this table");
@@ -112,6 +113,7 @@ namespace learnSpanish.Sqlite
             {
                 throw new SqliteServiceException(TableSql.Delete, typeof(T).Name, $"Rows deleted: {result}");
             }
+
         }
     }
 }
