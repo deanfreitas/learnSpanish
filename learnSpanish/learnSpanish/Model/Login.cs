@@ -33,7 +33,7 @@ namespace learnSpanish.Model
         [NotNull, Column("login_password")]
         public string Password { get; set; }
         
-        [OneToOne("login_id", "Login")]
+        [OneToOne(CascadeOperations = CascadeOperation.All, ReadOnly = false)]
         public User User { get; set; }
     }
 }

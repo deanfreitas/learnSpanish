@@ -163,7 +163,10 @@ namespace learnSpanish.ModelView
         {
             try
             {
-                await _sqliteService.GetObjectByUniqueValue<User>(u => u.Email.ToLower().Equals(email.ToLower()));
+                var emailRegistered =
+                    await _sqliteService.GetObjectByUniqueValue<User>(u => u.Email.ToLower().Equals(email.ToLower()));
+                if (emailRegistered == null) return false;
+
                 await _messageService.ShowMessageError(EnumsService.GetMessageErrorUser(ErrorUser.ExistEmail));
                 return true;
             }
@@ -178,7 +181,10 @@ namespace learnSpanish.ModelView
         {
             try
             {
-                await _sqliteService.GetObjectByUniqueValue<Login>(l => l.UserName.ToLower().Equals(userName.ToLower()));
+                var userNameRegistered = await _sqliteService.GetObjectByUniqueValue<Login>(l =>
+                    l.UserName.ToLower().Equals(userName.ToLower()));
+                if (userNameRegistered == null) return false;
+
                 await _messageService.ShowMessageError(EnumsService.GetMessageErrorUser(ErrorUser.ExistUserName));
                 return true;
             }

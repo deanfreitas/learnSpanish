@@ -21,7 +21,7 @@ namespace learnSpanish.Sqlite
         public async Task<T> GetOneObjectById<T>(int id) where T : new()
         {
             var connection = _sqliteWrapper.OpenDatabase();
-            var result = await connection.GetAsync<T>(id);
+            var result = await connection.FindAsync<T>(id);
 
             if (result == null)
             {
@@ -44,12 +44,25 @@ namespace learnSpanish.Sqlite
             return result;
         }
 
+        public async Task<T> GetOneObjectByIdWithChildren<T>(object id) where T : new()
+        {
+            var connection = _sqliteWrapper.OpenDatabase();
+            var result = await connection.GetWithChildrenAsync<T>(id, recursive: true);
+
+            if (result == null)
+            {
+                throw new SqliteServiceException(TableSql.Select, typeof(T).Name, $"Not found id = {id}");
+            }
+
+            return result;
+        }
+
         public async Task<List<T>> GetListObject<T>() where T : new()
         {
             var connection = _sqliteWrapper.OpenDatabase();
             var result = await connection.Table<T>().ToListAsync();
 
-            
+
             if (result == null)
             {
                 throw new SqliteServiceException(TableSql.Select, typeof(T).Name, "Not found values in this table");
@@ -104,6 +117,12 @@ namespace learnSpanish.Sqlite
             }
         }
 
+        public async Task UpdateWithChildren<T>(object o) where T : new()
+        {
+            var connection = _sqliteWrapper.OpenDatabase();
+            await connection.UpdateWithChildrenAsync(o);
+        }
+
         public async Task Delete<T>(object o) where T : new()
         {
             var connection = _sqliteWrapper.OpenDatabase();
@@ -113,7 +132,12 @@ namespace learnSpanish.Sqlite
             {
                 throw new SqliteServiceException(TableSql.Delete, typeof(T).Name, $"Rows deleted: {result}");
             }
+        }
 
+        public async Task DeleteWithChildren(object o)
+        {
+            var connection = _sqliteWrapper.OpenDatabase();
+            await connection.DeleteAsync(o, recursive: true);
         }
     }
 }

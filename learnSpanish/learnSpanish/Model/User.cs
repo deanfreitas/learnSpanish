@@ -38,7 +38,7 @@ namespace learnSpanish.Model
         [Indexed(Name = "UserId", Order = 1, Unique = true)]
         public int LoginId { get; set; }
 
-        [OneToOne("login_id", "User", CascadeOperations = CascadeOperation.All, ReadOnly = false)]
+        [OneToOne(CascadeOperations = CascadeOperation.All, ReadOnly = false)]
         public Login Login { get; set; }
     }
 }
