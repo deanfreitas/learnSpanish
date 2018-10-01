@@ -16,11 +16,7 @@ namespace learnSpanish.iOS.Files
         {
             var path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
             var dbPath = Path.Combine(path, "..", "Library", ConstantsSqlite.NameFile);
-            Logs.Logs.Error("Path: " + dbPath);
-
-            if (File.Exists(dbPath)) return dbPath;
-
-            File.Create(dbPath);
+            Logs.Logs.Info("Path: " + dbPath);
 
             return dbPath;
         }
