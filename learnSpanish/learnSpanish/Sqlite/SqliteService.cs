@@ -117,7 +117,7 @@ namespace learnSpanish.Sqlite
             }
         }
 
-        public async Task UpdateWithChildren<T>(object o) where T : new()
+        public async Task UpdateWithChildren(object o)
         {
             var connection = _sqliteWrapper.OpenDatabase();
             await connection.UpdateWithChildrenAsync(o);

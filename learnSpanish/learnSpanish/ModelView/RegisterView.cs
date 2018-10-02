@@ -9,7 +9,6 @@ using learnSpanish.Model;
 using learnSpanish.ModelView.Services;
 using learnSpanish.Sqlite;
 using learnSpanish.utils;
-using SQLite;
 using Xamarin.Forms;
 
 namespace learnSpanish.ModelView
