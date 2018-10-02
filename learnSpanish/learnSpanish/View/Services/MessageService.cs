@@ -15,5 +15,10 @@ namespace learnSpanish.View.Services
         {
             await Application.Current.MainPage.DisplayAlert("Alert", message, "Ok");
         }
+
+        public async Task<bool> ShowOnAlertYesNoClicked(string message)
+        {
+           return await Application.Current.MainPage.DisplayAlert("Question?", message, "Yes", "No");
+        }
     }
 }

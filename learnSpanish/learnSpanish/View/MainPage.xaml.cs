@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using learnSpanish.ModelView;
+using Xamarin.Forms;
 
 namespace learnSpanish.View
 {
@@ -7,6 +8,7 @@ namespace learnSpanish.View
         public MainPage()
         {
             InitializeComponent();
+            BindingContext = new MainView();
         }
     }
 }

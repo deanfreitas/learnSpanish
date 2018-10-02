@@ -6,5 +6,6 @@ namespace learnSpanish.ModelView.Services
     {
         Task ShowMessageError(string message);
         Task ShowMessage(string message);
+        Task<bool> ShowOnAlertYesNoClicked(string message);
     }
 }
