@@ -6,7 +6,7 @@
              xmlns:eventTriggerButton="clr-namespace:learnSpanish.Trigger.EventTrigger.ButtonEvent"
              xmlns:multiTrigger="clr-namespace:learnSpanish.Trigger.MultiTrigger"
              xmlns:behavior="clr-namespace:learnSpanish.Behavior.EntryBehavior"
-             x:Class="learnSpanish.View.RegisterPage">
+             x:Class="learnSpanish.View.ContentPageView.RegisterPage">
 
     <ContentPage.BindingContext>
         <modelView:RegisterView />

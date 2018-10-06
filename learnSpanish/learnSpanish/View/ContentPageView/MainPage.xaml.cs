@@ -2,7 +2,7 @@
 using learnSpanish.ModelView;
 using Xamarin.Forms;
 
-namespace learnSpanish.View
+namespace learnSpanish.View.ContentPageView
 {
     public partial class MainPage : ContentPage
     {

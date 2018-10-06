@@ -4,6 +4,8 @@ namespace learnSpanish.Enums.View
     {
         LoginPage,
         MainPage,
-        RegisterPage
+        RegisterPage,
+        UpdatePage,
+        PlayPage
     }
 }

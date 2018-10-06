@@ -3,6 +3,7 @@ using learnSpanish.Model;
 using learnSpanish.ModelView.Services;
 using learnSpanish.Sqlite;
 using learnSpanish.View;
+using learnSpanish.View.ContentPageView;
 using learnSpanish.View.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;

@@ -5,7 +5,7 @@
              xmlns:modelView="clr-namespace:learnSpanish.ModelView"
              xmlns:eventTriggerButton="clr-namespace:learnSpanish.Trigger.EventTrigger.ButtonEvent"
              xmlns:multiTrigger="clr-namespace:learnSpanish.Trigger.MultiTrigger"
-             x:Class="learnSpanish.View.LoginPage"
+             x:Class="learnSpanish.View.ContentPageView.LoginPage"
              Title="Page Login">
 
     <ContentPage.BindingContext>
