@@ -1,14 +1,15 @@
-﻿using learnSpanish.ModelView;
+﻿using learnSpanish.Model;
+using learnSpanish.ModelView;
 using Xamarin.Forms;
 
 namespace learnSpanish.View
 {
     public partial class MainPage : ContentPage
     {
-        public MainPage()
+        public MainPage(User user)
         {
             InitializeComponent();
-            BindingContext = new MainView();
+            BindingContext = new MainView(user);
         }
     }
 }

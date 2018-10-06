@@ -8,7 +8,6 @@ namespace learnSpanish.View
         public LoginPage()
         {
             InitializeComponent();
-            BindingContext = new LoginView();
         }
     }
 }

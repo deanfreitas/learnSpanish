@@ -8,7 +8,6 @@ namespace learnSpanish.View
 		public RegisterPage ()
 		{
 			InitializeComponent ();
-			BindingContext = new RegisterView();
 		}
 	}
 }

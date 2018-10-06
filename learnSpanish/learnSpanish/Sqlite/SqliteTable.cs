@@ -39,18 +39,6 @@ namespace learnSpanish.Sqlite
             }
 
             connection.CreateTableAsync<T>().Wait();
-            return;
-            var createTableResult = await connection.CreateTableAsync<T>();
-            var value = createTableResult.Results.Values.FirstOrDefault();
-            
-            if (value.Equals(1))
-            {
-                Logs.Logs.Info($"Create table {typeof(T).Name}");
-            }
-            else
-            {
-                throw new Exception($"Error create table {typeof(T).Name}");
-            }
         }
     }
 }

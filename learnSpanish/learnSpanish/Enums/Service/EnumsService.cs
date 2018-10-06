@@ -53,11 +53,12 @@ namespace learnSpanish.Enums.Service
             return string.Format($"Error {interactionTable} table {table}: {errorMessage}");
         }
 
-        public static string GetMessageSuccessUser(SuccessUser user, string nameUser)
+        public static string GetMessageSuccessUser(SuccessUser user, string name)
         {
             switch (user)
             {
-                case SuccessUser.UserRegistered: return $"{nameUser} was registered with success";
+                case SuccessUser.UserRegistered: return $"{name} was registered with success";
+                case SuccessUser.UserDeleted: return $"{name} was delete with success";
                 default: throw new ArgumentOutOfRangeException(nameof(user), user, null);
             }
         }

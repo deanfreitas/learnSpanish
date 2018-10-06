@@ -61,16 +61,18 @@ namespace learnSpanish.ModelView
 
             try
             {
-                var loginRegistered = await _sqliteService.GetObjectByUniqueValue<Login>(l =>
-                    l.UserName.Equals(login.UserName) && l.Password.Equals(login.Password));
+                var loginRegistered = await _sqliteService.GetObjectByUniqueValueWithChildren<Login>(l =>
+                    l.UserName.ToLower().Equals(login.UserName.ToLower()) && l.Password.Equals(login.Password));
                 if (loginRegistered == null)
                 {
                     Logs.Logs.Error(EnumsService.GetMessageErrorUser(ErrorUser.WrongCredentials));
                     await _messageService.ShowMessageError(
                         EnumsService.GetMessageErrorUser(ErrorUser.WrongCredentials));
                 }
-
-                await _navigationService.NavigationWithoutBackButton(ViewName.MainPage);
+                else
+                {
+                    await _navigationService.NavigationWithoutBackButton(ViewName.MainPage, loginRegistered.User);
+                }
             }
             catch (SqliteServiceException e)
             {

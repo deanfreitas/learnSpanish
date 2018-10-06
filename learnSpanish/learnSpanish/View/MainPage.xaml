@@ -7,10 +7,12 @@
              x:Class="learnSpanish.View.MainPage"
              Title="Page Main">
 
-    <ContentPage.BindingContext>
-        <modelView:MainView />
-    </ContentPage.BindingContext>
-
+    <!--
+        <ContentPage.BindingContext>
+            <modelView:MainView/>
+        </ContentPage.BindingContext>
+    -->
+    
     <StackLayout>
         <Frame>
             <StackLayout>

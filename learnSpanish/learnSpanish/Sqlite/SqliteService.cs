@@ -57,6 +57,19 @@ namespace learnSpanish.Sqlite
             return result;
         }
 
+        public async Task<T> GetObjectByUniqueValueWithChildren<T>(Expression<Func<T, bool>> predicate) where T : new()
+        {
+            var connection = _sqliteWrapper.OpenDatabase();
+            var result = await connection.GetAllWithChildrenAsync<T>(predicate, recursive: true);
+
+            if (result.Count.Equals(0))
+            {
+                throw new SqliteServiceException(TableSql.Select, typeof(T).Name, "Not found value in this table");
+            }
+
+            return result.FirstOrDefault();
+        }
+
         public async Task<List<T>> GetListObject<T>() where T : new()
         {
             var connection = _sqliteWrapper.OpenDatabase();
