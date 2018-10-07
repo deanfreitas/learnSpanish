@@ -6,35 +6,40 @@
              xmlns:eventTriggerButton="clr-namespace:learnSpanish.Trigger.EventTrigger.ButtonEvent"
              xmlns:multiTrigger="clr-namespace:learnSpanish.Trigger.MultiTrigger"
              x:Class="learnSpanish.View.ContentPageView.LoginPage"
-             Title="Page Login">
+             Title="Page Login"
+             BackgroundColor="#C51405">
 
     <ContentPage.BindingContext>
         <modelView:LoginView />
     </ContentPage.BindingContext>
 
     <ContentPage.Resources>
+
         <ResourceDictionary>
             <multiTrigger:CheckFieldsEmpty x:Key="CheckFieldsEmpty" />
         </ResourceDictionary>
     </ContentPage.Resources>
+    
 
-    <StackLayout>
-        <Frame>
-            <StackLayout>
+    <FlexLayout Direction="Column" 
+                AlignContent="Center" 
+                JustifyContent="Center">
+
+        <Frame BackgroundColor="#F9E105">
+            
+            <StackLayout Margin="20">
                 <Entry x:Name="User" Text="{Binding User}" Placeholder="User"
                        PlaceholderColor="Black" HeightRequest="40"
                        Keyboard="Text"
+                       FontSize="18"
                        TextColor="Black" />
 
                 <Entry x:Name="Password" Text="{Binding Password}" Placeholder="Password"
                        PlaceholderColor="Black" HeightRequest="40"
                        IsPassword="True"
+                       FontSize="18"
                        TextColor="Black" />
-            </StackLayout>
-        </Frame>
-        <Frame>
-            <StackLayout>
-                <Button Text="Login" IsEnabled="false">
+                <Button Text="Login" IsEnabled="false" BackgroundColor="#2494F6" BorderRadius="20" FontSize="18">
                     <Button.Triggers>
                         <EventTrigger Event="Clicked">
                             <eventTriggerButton:Action />
@@ -53,7 +58,7 @@
                         </MultiTrigger>
                     </Button.Triggers>
                 </Button>
-                <Button Text="Register" Command="{Binding RegisterCommand}">
+                <Button Text="Register" Command="{Binding RegisterCommand}" BackgroundColor="#DDF9F7" BorderRadius="20" FontSize="18">
                     <Button.Triggers>
                         <EventTrigger Event="Clicked">
                             <eventTriggerButton:Action />
@@ -62,5 +67,5 @@
                 </Button>
             </StackLayout>
         </Frame>
-    </StackLayout>
+    </FlexLayout>
 </ContentPage>
