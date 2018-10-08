@@ -39,7 +39,13 @@
                        IsPassword="True"
                        FontSize="18"
                        TextColor="Black" />
-                <Button Text="Login" IsEnabled="false" BackgroundColor="#2494F6" BorderRadius="20" FontSize="18">
+                <Button Text="Login"
+                        IsEnabled="false"
+                        BackgroundColor="#2494F6"
+                        BorderRadius="20"
+                        FontSize="18"
+                        TextColor="Black">
+                    
                     <Button.Triggers>
                         <EventTrigger Event="Clicked">
                             <eventTriggerButton:Action />
@@ -58,7 +64,12 @@
                         </MultiTrigger>
                     </Button.Triggers>
                 </Button>
-                <Button Text="Register" Command="{Binding RegisterCommand}" BackgroundColor="#DDF9F7" BorderRadius="20" FontSize="18">
+                <Button Text="Register"
+                        Command="{Binding RegisterCommand}" 
+                        BackgroundColor="#DDF9F7"
+                        BorderRadius="20"
+                        FontSize="18"
+                        TextColor="Black">
                     <Button.Triggers>
                         <EventTrigger Event="Clicked">
                             <eventTriggerButton:Action />

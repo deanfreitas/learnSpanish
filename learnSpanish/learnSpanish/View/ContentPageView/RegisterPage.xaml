@@ -6,7 +6,8 @@
              xmlns:eventTriggerButton="clr-namespace:learnSpanish.Trigger.EventTrigger.ButtonEvent"
              xmlns:multiTrigger="clr-namespace:learnSpanish.Trigger.MultiTrigger"
              xmlns:behavior="clr-namespace:learnSpanish.Behavior.EntryBehavior"
-             x:Class="learnSpanish.View.ContentPageView.RegisterPage">
+             x:Class="learnSpanish.View.ContentPageView.RegisterPage"
+             BackgroundColor="#C51405">
 
     <ContentPage.BindingContext>
         <modelView:RegisterView />
@@ -19,12 +20,18 @@
     </ContentPage.Resources>
 
     <ContentPage.Content>
-        <ScrollView>
-            <StackLayout>
-                <Label Text="Welcome!" />
-                <Label Text="Create your account now" />
 
-                <Entry x:Name="Name" Text="{Binding Name}" Placeholder="Name"
+        <FlexLayout Direction="Column" 
+                AlignContent="Center" 
+                JustifyContent="SpaceEvenly"
+                    Margin="20">
+            
+                <Label Text="Welcome!"
+                       FontSize="20"
+                       TextColor="#F9E105"/>
+
+
+            <Entry x:Name="Name" Text="{Binding Name}" Placeholder="Name"
                        PlaceholderColor="Black" HeightRequest="40"
                        Keyboard="Text"
                        TextColor="Black" />
@@ -63,7 +70,11 @@
                     </Entry.Behaviors>
                 </Entry>
 
-                <Button Text="Create" IsEnabled="False">
+                <Button Text="Create"
+                        IsEnabled="False"
+                        BorderRadius="20"
+                        BackgroundColor="#2494F6">
+                    
                     <Button.Triggers>
                         <EventTrigger Event="Clicked">
                             <eventTriggerButton:Action />
@@ -91,15 +102,16 @@
                         </MultiTrigger>
                     </Button.Triggers>
                 </Button>
-
-                <Button Text="Cancel" Command="{Binding CancelCommand}">
+                <Button Text="Cancel"
+                        Command="{Binding CancelCommand}"
+                        BorderRadius="20"
+                        BackgroundColor="#DDF9F7">
                     <Button.Triggers>
                         <EventTrigger Event="Clicked">
                             <eventTriggerButton:Action />
                         </EventTrigger>
                     </Button.Triggers>
                 </Button>
-            </StackLayout>
-        </ScrollView>
+                </FlexLayout>
     </ContentPage.Content>
 </ContentPage>
